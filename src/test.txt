@@ -1,1 +1,1 @@
-this is the test for "joshibu-seminor"
+This is the test for "joshibu-seminor"
