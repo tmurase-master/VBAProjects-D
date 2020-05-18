@@ -35,7 +35,9 @@ Sub SearchFiles()
  LogTab_Row = 1  '初期値を１で設定
  LogCount = 1
  
+ 
  '検索対象のフォルダを指定
+ MsgBox "検索対象フォルダを選択してください。選択したフォルダ配下にあるサブフォルダも検索対象となります。"
  With Application.FileDialog(msoFileDialogFolderPicker)
     If .Show = True Then
         Get_Foldername = .SelectedItems(1)
@@ -60,7 +62,7 @@ Sub SearchFiles()
  Do While SearchWord = "" 'キーワードを1文字以上入力されるまでループ
     SearchWord = InputBox("検索するキーワードを入力してください", "キーワード入力", "") 'インプットボックスで取得
     If SearchWord = "" Then  '何もキーワードを入力されなかった場合
-        MsgBox "キーワードを1文字以上入力してください。" 'エラーメッセージを表示する
+        MsgBox "キーワードを1文字以上入力してください。なお、キャンセルはできません。" 'エラーメッセージを表示する
     End If
  Loop
  
