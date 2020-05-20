@@ -27,8 +27,14 @@ Sub 他のファイルから集約()
         Do Until .Cells(resultnum + 3, 2) = ""
             resultnum = resultnum + 1
         Loop
-        resultnum = resultnum - 1
         
+        '検索結果が0件の場合処理終了
+        If resultnum = 0 Then
+            MsgBox "検索結果が0件のため処理を終了します"
+            End
+        End If
+         
+        resultnum = resultnum - 1
         ReDim Filepath(resultnum, 1) '配列の要素数を設定
         
         For a = 0 To resultnum
@@ -47,11 +53,12 @@ Sub 他のファイルから集約()
             LastRow = .Worksheets(Filepath(a, 1)).Cells(Rows.Count, 1).End(xlUp).Row
             LastCol = .Worksheets(Filepath(a, 1)).Cells(LastRow, Columns.Count).End(xlToLeft).Column
             '貼り付け元のコピー
-            .Worksheets(Filepath(a, 1)).Range(Cells(FirstRow, 1), Cells(LastRow, LastCol)).Copy
+            .Worksheets(Filepath(a, 1)).Range(Worksheets(Filepath(a, 1)).Cells(FirstRow, 1), _
+                                              Worksheets(Filepath(a, 1)).Cells(LastRow, LastCol)).Copy
             'このブックの集約セルへ値貼り付け
             ThisWorkbook.Worksheets("集約").Cells(NextRow, 1).PasteSpecial xlPasteAll
             '次回貼付け位置の設定
-            NextRow = NextRow + LastRow - FirstRow
+            NextRow = NextRow + LastRow - FirstRow + 1
             'コピー中状態を解除
             Application.CutCopyMode = False
             '貼付け元のブックを保存せずに閉じる
